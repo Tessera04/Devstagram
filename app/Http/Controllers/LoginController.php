@@ -23,6 +23,6 @@ class LoginController extends Controller
             //Lo que se le dice con este codigo es return back (volve atras) con este mensaje
         }
 
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index', auth()->user()->username);
     }
 }

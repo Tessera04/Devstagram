@@ -26,8 +26,10 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store'])->name('login');
 
 //ARCHIVO REGISTER.BLADE.PHP
-Route::get('/muro', [PostController::class, 'index'])->name('posts.index')->middleware('auth');
+//De este modo se ponen url mas estaticas, debajo se ve como seria para que salga cada muro con su nombre
+//Route::get('/muro', [PostController::class, 'index'])->name('posts.index')->middleware('auth');
 //middleware sirve para revisar que el usuario este autenticado antes de mostrar el index
+Route::get('/{user:username}', [PostController::class, 'index'])->name('posts.index')->middleware('auth');
 
 //Route::get('/logout', [LogOutController::class, 'index'])->name('login');
 Route::post('/logout', [LogOutController::class, 'store'])->name('logout');
