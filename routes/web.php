@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogOutController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
@@ -27,3 +28,6 @@ Route::post('/login', [LoginController::class, 'store'])->name('login');
 //ARCHIVO REGISTER.BLADE.PHP
 Route::get('/muro', [PostController::class, 'index'])->name('posts.index')->middleware('auth');
 //middleware sirve para revisar que el usuario este autenticado antes de mostrar el index
+
+//Route::get('/logout', [LogOutController::class, 'index'])->name('login');
+Route::post('/logout', [LogOutController::class, 'store'])->name('logout');
