@@ -9,7 +9,14 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function index(User $user){
-        return view('dashboard', ['user' => $user]);
+
+        $posts = Post::where('user_id', $user->id)->paginate(16);
+
+        //Con este pedazo de codigo le decimos a la vista "dashboard" lo que tenemos que ver
+        return view('dashboard', [
+            'user' => $user,
+            'posts' => $posts
+        ]);
     }
 
     //create nos permite tener la vista del formulario
