@@ -1,12 +1,14 @@
 <?php
 //laravel.com/docs/9.x/controllers
 
+use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogOutController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
+
 
 Route::get('/', function () {
     return view('home');
@@ -38,5 +40,11 @@ Route::get('/{user:username}', [PostController::class, 'index'])->name('posts.in
 //POSTS.CREATE
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+//Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+//Podemos mejorar la sintaxis de arriba de la siguiente forma mostrando el nickname
+Route::get('/{user:username}/posts/{post}', [PostController::class, 'show'])->name('posts.show')->middleware('auth');
+
+//Comentarios
+Route::post('/{user:username}/posts/{post}', [ComentarioController::class, 'store'])->name('comentarios.store');
 
 Route::post('/imagenes', [ImagenController::class, 'store'])->name('imagenes.store');
