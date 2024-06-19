@@ -1,14 +1,15 @@
 <?php
 //laravel.com/docs/9.x/controllers
 
-use App\Http\Controllers\ComentarioController;
-use App\Http\Controllers\ImagenController;
-use App\Http\Controllers\LikeController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\LogOutController;
-use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ImagenController;
+use App\Http\Controllers\LogOutController;
+use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ComentarioController;
 
 
 Route::get('/', function () {
@@ -31,6 +32,10 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store'])->name('login');
 //Route::get('/logout', [LogOutController::class, 'index'])->name('login');
 Route::post('/logout', [LogOutController::class, 'store'])->name('logout');
+
+//Rutas para el perfil
+Route::get('/editar-perfil', [PerfilController::class, 'index'])->name('perfil.index')->middleware('auth');
+Route::post('/editar-perfil', [PerfilController::class, 'store'])->name('perfil.store')->middleware('auth');
 
 //ARCHIVO REGISTER.BLADE.PHP
 //De este modo se ponen url mas estaticas, debajo se ve como seria para que salga cada muro con su nombre
@@ -55,3 +60,5 @@ Route::post('/imagenes', [ImagenController::class, 'store'])->name('imagenes.sto
 //Likear fotos
 Route::post('/posts/{post}/likes', [LikeController::class, 'store'])->name('posts.likes.store');
 Route::delete('/posts/{post}/likes', [LikeController::class, 'destroy'])->name('posts.likes.destroy');
+
+
