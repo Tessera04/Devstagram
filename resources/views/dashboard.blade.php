@@ -7,13 +7,18 @@
 @section('contenido')
     <div class="flex justify-center">
         <div class="w-full md:w-8/12 md:flex lg:w-6/12 flex flex-col items-center md:flex-row">
+
             <div class="w-8/12 lg:w-6/12 px-5">
-                <img src="{{ asset('img/usuario.svg')}}" alt="usuario desconocido">
+                <img src="{{ 
+                    $user->imagen ? 
+                    asset('perfiles' . '/' . $user->imagen) : 
+                    asset('img/usuario.svg') }}" 
+                    alt="usuario desconocido">
             </div>
+
             <div class="md:w-8/12 lg:w-6/12 px-5 flex flex-col items-center md:justify-center md:items-start md:py-10 py-10">
                 <div class="flex items-center gap-2">
                     <p class="text-gray-700 text-2xl font-bold">{{ $user->username }}</p>
-
                     @auth
                         @if ($user->id === auth()->user()->id)
                             <a href="{{ route('perfil.index', $user) }}" class="text-gray-500 hover:text-gray-700 cursor-pointer">
@@ -36,7 +41,7 @@
                 </p>
 
                 <p class="text-gray-800 text-sm mb-3 font-bold">
-                    0
+                    {{ $user->posts->count() }}
                     <span class="font-normal">Posts</span>
                 </p>
             </div>
