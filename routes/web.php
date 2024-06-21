@@ -11,10 +11,10 @@ use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\FollowerController;
+use App\Http\Controllers\HomeController;
 
-Route::get('/', function () {
-    return view('home');
-});
+//Ruta del home, si usamos el metodo __invoke(), no hace falta pasarle el tipo de funcion [index, store, destroy, etc] | Solo sirve para metodos de un solo valor post, por ejemplo la pag principal
+Route::get('/', HomeController::class)->name('home')->middleware('auth');;
 
 Route::get('/tienda', function () {
     return view('tienda');
